@@ -1,0 +1,17 @@
+surveyRecords = zoho.crm.getRecordById("Surveys", surveyID);
+fields = zoho.writer.getMergeFields("kzgn7932719e5194448c6b085de30f60ea63e", "writer");
+info fields;
+
+data = Map();
+data.put("Email", surveyRecords.get("Email"));
+data.put("Name", surveyRecords.get("Name"));
+data.put("Question_1", surveyRecords.get("Question_1"));
+
+mergedata = Map();
+mergedata.put("merge_data", {"data":data});
+mergedata.put("subject", "Merge Mail testing");
+mergedata.put("message", "this is your message");
+info mergedata;
+
+sendMessage = zoho.writer.mergeAndSend("kzgn7932719e5194448c6b085de30f60ea63e", "pdf", userEmail, mergedata, "writer");
+info sendMessage;
