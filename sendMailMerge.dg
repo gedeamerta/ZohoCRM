@@ -1,3 +1,16 @@
+// surveyID & userEmail = parameter that already set from ZOHO CRM
+// -----------------------------------------
+/*
+    imagine like this
+    
+    public function sendMailMerge(surveyID, userEmail)
+    {
+        execution
+    }
+
+*/
+// ------------------------------------------
+
 surveyRecords = zoho.crm.getRecordById("Surveys", surveyID);
 fields = zoho.writer.getMergeFields("kzgn7932719e5194448c6b085de30f60ea63e", "writer");
 info fields;
