@@ -1,12 +1,12 @@
 // getTask1 which mean to update "Status" field in Task Module and "Subject" field is ON TRACK 1 
 
-int getTask1(int contactID)
+int getTask1(int contactID, string taskSubjectName)
 {
 tasklists = zoho.crm.getRelatedRecords("Activities","Contacts",contactID);
 for each  ele in tasklists
 {
 	taskname = ele.get("Subject");
-	if(taskname == "ON TRACK 1") // base on what is inputed from user
+	if(taskname == taskSubjectName) // base on what is inputed from user
 	{
 		taskid = ele.get("id");
 	}
