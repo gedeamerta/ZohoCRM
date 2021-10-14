@@ -1,0 +1,681 @@
+// goes to spam inbox
+contactRecords = zoho.crm.getRecordById("Contacts",contactID);
+idContact = contactRecords.get("id");
+Email = contactRecords.get("Email");
+First_Name = contactRecords.get("First_Name");
+Last_Name = contactRecords.get("Last_Name");
+Phone = contactRecords.get("Phone");
+TrackAssignment = contactRecords.get("Track_Assignment");
+taskID = contactRecords.get("Track_ID");
+Account_Name = contactRecords.get("Account_Name").get("name");
+Account_ID = contactRecords.get("Account_Name").get("id");
+info idContact;
+if(TrackAssignment == "ON TRACK 01")
+{
+	subjectName = "ON TRACK 02";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 02")
+{
+	subjectName = "ON TRACK 03";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 03")
+{
+	subjectName = "ON TRACK 04";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 04")
+{
+	subjectName = "ON TRACK 05";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 05")
+{
+	subjectName = "ON TRACK 06";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 06")
+{
+	subjectName = "ON TRACK 07";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 07")
+{
+	subjectName = "ON TRACK 08";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 08")
+{
+	subjectName = "ON TRACK 09";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 09")
+{
+	subjectName = "ON TRACK 10";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 10")
+{
+	subjectName = "ON TRACK 11";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 11")
+{
+	subjectName = "ON TRACK 12";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 12")
+{
+	subjectName = "ON TRACK 13";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 13")
+{
+	subjectName = "ON TRACK 14";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 14")
+{
+	subjectName = "ON TRACK 15";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 16")
+{
+	subjectName = "ON TRACK 17";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+else if(TrackAssignment == "ON TRACK 17")
+{
+	subjectName = "ON TRACK 18";
+	//mapping
+	trackMapping = Map();
+	trackMapping.put("Track_Assignment",subjectName);
+	//update next track
+	next = zoho.crm.updateRecord("Contacts",idContact,trackMapping);
+}
+// this code for getting task record by id
+taskRecords = zoho.crm.getRecordById("Tasks",taskID);
+dueDate = taskRecords.get("Due_Date").addDay(1);
+taskName = taskRecords.get("Subject");
+taskStatus = taskRecords.get("Status");
+info dueDate;
+//map for account
+accountMapping = Map();
+accountMapping.put("name",Account_Name);
+accountMapping.put("id",Account_ID);
+// this code for creating task 
+mapRecords = Map();
+mapRecords.put("Subject",subjectName);
+mapRecords.put("Priority","High");
+mapRecords.put("Due_Date",dueDate);
+mapRecords.put("Who_Id",contactID);
+mapRecords.put("$se_module","Accounts");
+mapRecords.put("What_Id",accountMapping);
+mapRecords.put("Status","In Progress");
+//for creating task
+createTask = zoho.crm.createRecord("Tasks",mapRecords);
+info createTask;
+//update Task ID new
+taskIDNew = createTask.get("id");
+newMap = Map();
+newMap.put("Track_ID",taskIDNew);
+taskIDUpdate = zoho.crm.updateRecord("Contacts",idContact,newMap);
+// get newest task by id with status in progress 
+getTaskNew = zoho.crm.getRecordById("Tasks",taskIDNew);
+statusNew = getTaskNew.get("Status");
+subjectNew = getTaskNew.get("Subject");
+// merging data
+data = Map();
+data.put("Email",Email);
+data.put("First_Name",First_Name);
+data.put("Last_Name",Last_Name);
+data.put("Account_Name",Account_Name);
+data.put("Phone",Phone);
+mdata = {"data":{{"Email":Email,"First_Name":First_Name,"Last_Name":Last_Name,"Account_Name":Account_Name,"Phone":Phone}}};
+info mdata;
+if(subjectNew == "ON TRACK 02")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo215906291d481247ddb07a84488d16eef6";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 2 sended";
+}
+else if(subjectNew == "ON TRACK 03")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo214aaeac98d977470db03727f329b72937";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 3 sended";
+}
+else if(subjectNew == "ON TRACK 04")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21f05db36ae63e4886ab9b6cea3de7d4fb";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 4 sended";
+}
+else if(subjectNew == "ON TRACK 05")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21b343c88b1c924508924481bfcb79ffbd";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 5 sended";
+}
+else if(subjectNew == "ON TRACK 06")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo216c30a404436a48f99904690b18b6b77a";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 6 sended";
+}
+else if(subjectNew == "ON TRACK 07")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo218747b8fde4284cdd8ea3a78ef8f16087";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 7 sended";
+}
+else if(subjectNew == "ON TRACK 08")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21e42b8bd3e21c431c82f61f88b3756ffa";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 8 sended";
+}
+else if(subjectNew == "ON TRACK 09")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21149087f0943f4516b7cce04c0c0d0dcf";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 9 sended";
+}
+else if(subjectNew == "ON TRACK 10")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21ddb720618c28476186fedc23d72f3d18";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 10 sended";
+}
+else if(subjectNew == "ON TRACK 11")
+{
+	//update new ID Task 11
+	taskIDNew = createTask.get("id");
+	newMap = Map();
+	newMap.put("TrackID_11",taskIDNew);
+	taskIDUpdate = zoho.crm.updateRecord("Contacts",idContact,newMap);
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21108e7a865e7a4efb93ba089113bc4bef";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 11 sended";
+}
+else if(subjectNew == "ON TRACK 12")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo2162a13a3bca3245f883a97e9b30411294";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 12 sended";
+}
+else if(subjectNew == "ON TRACK 13")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21ec4b47a9e08e48b2b3ed19547217cab6";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 13 sended";
+}
+else if(subjectNew == "ON TRACK 14")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21f3aeb5f3f2aa40e38ec32aab1e256e1d";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 14 sended";
+}
+else if(subjectNew == "ON TRACK 15")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21c71213ca59f34171ac94bdd21ddf59a4";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 15 sended";
+}
+else if(subjectNew == "ON TRACK 16")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21a3e514bef67c4b9f93aeee228fb06589";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 16 sended";
+}
+else if(subjectNew == "ON TRACK 17")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo21a5a51e56745542d4b4ef28c0f5208172";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 17 sended";
+}
+else if(subjectNew == "ON TRACK 18")
+{
+	mergedata = Map();
+	mergedata.put("output_format","pdf");
+	mergedata.put("filename",subjectNew + " Assignment - Open to get started");
+	mergedata.put("merge_data",mdata);
+	info mergedata;
+	resourceid = "iuo219978118f74e84826a38fe82dcfb01224";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Contacts",contactID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.loginuserid
+		to :Email
+		subject :subjectNew + " Assignment"
+		message :"Click here to get started!"
+		Attachments :file:mergedown
+	]
+	info "On track 18 sended";
+}
+else
+{
+	info "do nothing";
+}
