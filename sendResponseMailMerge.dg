@@ -1,1 +1,187 @@
-// Response Mail Merge
+// Response Mail Merge goes into Promotions
+surveyRecords = zoho.crm.getRecordById("Surveys",surveyID);
+//info surveyRecords;
+surveyName = surveyRecords.get("Name");
+email = surveyRecords.get("Email");
+question_1 = surveyRecords.get("Question_1");
+question_2 = surveyRecords.get("Question_2");
+question_3 = surveyRecords.get("Question_3");
+question_4 = surveyRecords.get("Question_4");
+question_5 = surveyRecords.get("Question_5");
+question_6 = surveyRecords.get("Question_6");
+question_7 = surveyRecords.get("Question_7");
+question_8 = surveyRecords.get("Question_8");
+question_9 = surveyRecords.get("Question_9");
+question_10 = surveyRecords.get("Question_10");
+question_11 = surveyRecords.get("Question_11");
+question_12 = surveyRecords.get("Question_12");
+question_13 = surveyRecords.get("Question_13");
+question_14 = surveyRecords.get("Question_14");
+question_15 = surveyRecords.get("Question_15");
+question_16 = surveyRecords.get("Question_16");
+question_17 = surveyRecords.get("Question_17");
+question_18 = surveyRecords.get("Question_18");
+question_19 = surveyRecords.get("Question_19");
+question_20 = surveyRecords.get("Question_20");
+question_21 = surveyRecords.get("Question_21");
+question_22 = surveyRecords.get("Question_22");
+question_23 = surveyRecords.get("Question_23");
+question_24 = surveyRecords.get("Question_24");
+question_25 = surveyRecords.get("Question_25");
+multi_answer_task1_Q11 = surveyRecords.get("Multi_Select_Task_1_Q11");
+multi_answer_task12_Q4 = surveyRecords.get("Multi_Select_Task_12_Q4");
+multi_answer_task12_Q7 = surveyRecords.get("Multi_Select_Task_12_Q7");
+multi_answer_task3_Q10 = surveyRecords.get("Multi_Select_Task_3_Q10");
+multi_answer_task3_Q4 = surveyRecords.get("Multi_Select_Task_3_Q4");
+multi_answer_task3_Q6 = surveyRecords.get("Multi_Select_Task_3_Q6");
+multi_answer_task3_Q8 = surveyRecords.get("Multi_Select_Task_3_Q8");
+data = Map();
+data.put("Email",surveyRecords.get("Email"));
+data.put("Question_1",question_1);
+data.put("Question_2",question_2);
+data.put("Question_3",question_3);
+data.put("Question_4",question_4);
+data.put("Question_5",question_5);
+data.put("Question_6",question_6);
+data.put("Question_7",question_7);
+data.put("Question_8",question_8);
+data.put("Question_9",question_9);
+data.put("Question_10",question_10);
+data.put("Question_11",question_11);
+data.put("Question_12",question_12);
+data.put("Question_13",question_13);
+data.put("Question_14",question_14);
+data.put("Question_15",question_15);
+data.put("Question_16",question_16);
+data.put("Question_17",question_17);
+data.put("Question_18",question_18);
+data.put("Question_19",question_19);
+data.put("Question_20",question_20);
+data.put("Question_22",question_22);
+data.put("Question_23",question_23);
+data.put("Question_24",question_24);
+data.put("Question_25",question_25);
+data.put("Multi_Select_Task_1_Q11",multi_answer_task1_Q11);
+data.put("Multi_Select_Task_12_Q4",multi_answer_task12_Q4);
+data.put("Multi_Select_Task_12_Q7",multi_answer_task12_Q7);
+data.put("Multi_Select_Task_3_Q10",multi_answer_task3_Q10);
+data.put("Multi_Select_Task_3_Q4",multi_answer_task3_Q4);
+data.put("Multi_Select_Task_3_Q6",multi_answer_task3_Q6);
+data.put("Multi_Select_Task_3_Q8",multi_answer_task3_Q8);
+mdata = {"data":{{"Name":surveyName,"Email":email,"Question_1":question_1,"Question_2":question_2,"Question_3":question_3,"Question_4":question_4,"Question_5":question_5,"Question_6":question_6,"Question_7":question_7,"Question_8":question_8,"Question_9":question_9,"Question_10":question_10,"Question_11":question_11,"Question_12":question_12,"Question_13":question_13,"Question_14":question_14,"Question_15":question_15,"Question_16":question_16,"Question_17":question_17,"Question_18":question_18,"Question_19":question_19,"Question_20":question_20,"Question_21":question_21,"Question_22":question_22,"Question_23":question_23,"Question_24":question_24,"Question_25":question_25,"Multi_Select_Task_1_Q11":multi_answer_task1_Q11,"Multi_Select_Task_12_Q4":multi_answer_task12_Q4,"Multi_Select_Task_12_Q7":multi_answer_task12_Q7,"Multi_Select_Task_3_Q10":multi_answer_task3_Q10,"Multi_Select_Task_3_Q4":multi_answer_task3_Q4,"Multi_Select_Task_3_Q6":multi_answer_task3_Q6,"Multi_Select_Task_3_Q8":multi_answer_task3_Q8}}};
+info mdata;
+mergedata = Map();
+mergedata.put("output_format","pdf");
+mergedata.put("filename","Result Task " + surveyName);
+mergedata.put("merge_data",mdata);
+info mergedata;
+if(surveyName == "On Track 01")
+{
+	resourceid = "kzgn7607b2c9acbc8497b8adc8fa29c936621";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Surveys",surveyID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :email
+		subject :"Response " + surveyName
+		message :"Let's see your answer"
+		Attachments :file:mergedown
+	]
+}
+else if(surveyName == "On Track 02")
+{
+	resourceid = "kzgn7b333773e4106492d84edf3c8473e1d7e";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Surveys",surveyID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :email
+		subject :"Response " + surveyName
+		message :"Let's see your answer"
+		Attachments :file:mergedown
+	]
+}
+else if(surveyName == "On Track 03")
+{
+	resourceid = "kzgn76fcc2a92aa554cbd8022c907584e9da5";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Surveys",surveyID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :email
+		subject :"Response " + surveyName
+		message :"Let's see your answer"
+		Attachments :file:mergedown
+	]
+}
+else if(surveyName == "On Track 12")
+{
+	resourceid = "iuo2104412b7f07834a0ca265fc70537eba5a";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Surveys",surveyID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :email
+		subject :"Response " + surveyName
+		message :"Let's see your answer"
+		Attachments :file:mergedown
+	]
+}
+else
+{
+	resourceid = "iuo21ac45ac893af645d7995747d3ded4b876";
+	mergedown = invokeurl
+	[
+		url :"https://writer.zoho.com.au/writer/api/v1/documents/" + resourceid + "/merge/download"
+		type :POST
+		parameters:mergedata
+		connection:"writer"
+	];
+	// info mergedown;
+	attach1 = zoho.crm.attachFile("Surveys",surveyID,mergedown);
+	info attach1;
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :email
+		subject :"Response " + surveyName
+		message :"Let's see your answer"
+		Attachments :file:mergedown
+	]
+}
