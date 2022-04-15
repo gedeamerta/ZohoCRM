@@ -1,0 +1,110 @@
+getOpp = zoho.crm.getRecordById("Deals",opportunityID);
+ownerOpp = getOpp.get("Owner").get("id");
+oppName = getOpp.get("Deal_Name");
+oppEmail = getOpp.get("Email");
+oppPhone = getOpp.get("Phone");
+surveyDate = getOpp.get("Survey_Date");
+packingVendorId = getOpp.get("Packing_Vendor").get("id");
+getPackingVendor = zoho.crm.getRecordById("Vendors",packingVendorId);
+getEstimates = zoho.crm.getRelatedRecords("Quotes","Deals",opportunityID);
+getOppContactName = getOpp.get("Contact_Name").get("name");
+getOppContactID = getOpp.get("Contact_Name").get("id");
+info getOppContactName;
+getContactByID = zoho.crm.getRecordById("Contacts",getOppContactID);
+getPhoneContact = getContactByID.get("Phone");
+for each  data in getEstimates
+{
+	estimateID = data.get("id");
+	originVendorID = ifnull(data.get("Origin_Vendor").get("id"),"");
+	getAgentVendorData = zoho.crm.getRecordById("Vendors",originVendorID);
+	// 	info getAgentVendorData;
+	email_origin = ifnull(getAgentVendorData.get("Email"),"");
+	destinationVendorID = ifnull(data.get("Destination_Vendor").get("id"),"");
+	getDestinationVendorData = zoho.crm.getRecordById("Vendors",destinationVendorID);
+	email_destination = ifnull(getDestinationVendorData.get("Email"),"");
+	// 	info getDestinationVendorData;
+}
+originAddress = getOpp.get("Origin_Address");
+originState = getOpp.get("Origin_State");
+originCity = getOpp.get("Origin_City");
+originCountry = getOpp.get("Origin_Country");
+getVolume = getOpp.get("Volume");
+destAddress = getOpp.get("Destination_Address");
+destCity = getOpp.get("Destination_City");
+destState = getOpp.get("Destination_State");
+destCountry = getOpp.get("Destination_Country");
+spType = getOpp.get("SP_Type");
+coverValue = getOpp.get("Cover_Value");
+premiumPercentage = getOpp.get("Premium_Percentage");
+chargeablePremium = getOpp.get("Chargeable_Premium");
+json = Map();
+json.put("Owner",ownerOpp);
+json.put("Sales_PIC",ownerOpp);
+json.put("Name",oppName);
+json.put("Email",oppEmail);
+json.put("Phone_Number",oppPhone);
+json.put("Created_By",ownerOpp);
+// json.put("Estimate","https://crm.zoho.com/crm/org770877363/tab/Potentials/" + estimateID);
+json.put("Operations_URL","https://crm.zoho.com/crm/org770877363/tab/CustomModule1/" + opportunityID);
+json.put("Opportunity_Lookup",getOpp);
+if(originAddress != null)
+{
+	json.put("Origin_Packing_Address",originAddress);
+}
+if(originState != null)
+{
+	json.put("Origin_State",originState);
+}
+if(originCountry != null)
+{
+	json.put("Origin_Packing_Country",originCountry);
+}
+if(originCity != null)
+{
+	json.put("Origin_City",originCity);
+}
+json.put("Volume",getVolume);
+if(destAddress != null)
+{
+	json.put("Delivery_Address",destAddress);
+}
+if(destState != null)
+{
+	json.put("Destination_State",destState);
+}
+if(destCountry != null)
+{
+	json.put("Delivery_Country",destCountry);
+}
+if(destCity != null)
+{
+	json.put("Destination_City",destCity);
+}
+json.put("Survey_Date",surveyDate);
+json.put("SP_Type",spType);
+json.put("Cover_Value",coverValue);
+json.put("Premium_Percentage",premiumPercentage);
+json.put("Chargeable_Premium",chargeablePremium);
+json.put("Contact_Name",getOppContactName);
+json.put("Phone_Number",getPhoneContact);
+json.put("Packing_Vendor",getPackingVendor);
+json.put("Estimates",estimateID);
+json.put("Origin_Agent_Email",email_origin);
+json.put("Origin_Agent_Vendor",getAgentVendorData);
+json.put("Destination_Agent_Email",email_destination);
+json.put("Destination_Agent_Vendor",getDestinationVendorData);
+createOperation = zoho.crm.createRecord("Operations",json,{"trigger":{"workflow"}});
+info createOperation;
+
+getContactEmail = getOperation.get("Email");
+getContacts = zoho.crm.getRecords("Contacts");
+for each data in getContacts
+{
+	getEmail = data.get("Email");
+	if (getContactEmail == getEmail) {
+		getId = data.get("id");
+		createTask = zoho.crm.createRecord("Tasks",{"Owner":getPIC,"Send_Notification_Email":true,"Subject":"Delivery date confirmed - Customer","Status":"In Progress","$se_module":"Operations","What_Id":operationID,"Due_Date":today, "Who_Id": getId});
+		createTask2 = zoho.crm.createRecord("Tasks",{"Owner":getPIC,"Send_Notification_Email":true,"Subject":"Delivery date confirmed - DA","Status":"In Progress","$se_module":"Operations","What_Id":operationID,"Due_Date":today, "Who_Id": getId});
+		info createTask;
+	}
+}
