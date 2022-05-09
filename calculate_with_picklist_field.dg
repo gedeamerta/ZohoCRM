@@ -1,0 +1,1 @@
+If(Contains(${Operations.Cover %},'2.5%'),0.025*${Operations.Moving Amount},If(Contains(${Operations.Cover %},'3%'),0.03*${Operations.Moving Amount},0))
