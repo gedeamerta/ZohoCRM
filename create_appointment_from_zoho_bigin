@@ -1,0 +1,11 @@
+// Flow for this code is when the Zoho Bigin already has booking date, it will automatically add new appointment in Zoho Bookings
+// The code below is just customisation of Date from Zoho Bigin to get the exact format as Zoho Bookings date format
+// Zoho Bigin date format: 2022-06-01T01:00:00+10:00; Zoho Bookings date format: 01-Jun-2022 01:00:00;
+
+string modified_date1(string booking_date)
+{
+customiseDate1 = booking_date.replaceAll("T"," ");
+customiseDate2 = customiseDate1.remove(booking_date.getSuffix("+"));
+customiseDate3 = customiseDate2.remove("+");
+return customiseDate3.toDateTime();
+}
