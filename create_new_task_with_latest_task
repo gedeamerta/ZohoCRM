@@ -1,0 +1,52 @@
+getUsers = zoho.crm.getRecords("users");
+userArray = getUsers.get("users");
+for each  dataUser in userArray
+{
+	fullname = dataUser.get("full_name");
+	if(fullname == "Jane Guo")
+	{
+		janeID = dataUser.get("id");
+	}
+	else if(fullname == "Marisol Ruiz")
+	{
+		marisolID = dataUser.get("id");
+	}
+}
+query_map = Map();
+query_map.put("sort_order","desc");
+query_map.put("sort_by","Created_Time");
+query_map.put("cvid","32750000000646093");
+response = zoho.crm.getRecords("Tasks",1,10,query_map,"crm");
+n = 0;
+if(response.size() == 0)
+{
+	dateTime = today.addDay(2);
+	createTask = zoho.crm.createRecord("Tasks",{"Owner":janeID,"Send_Notification_Email":true,"Subject":"Quality Assurance","Status":"Waiting for input","$se_module":"Deals","What_Id":dealsID,"Due_Date":dateTime});
+	info createTask;
+}
+else
+{
+	for each  task in response
+	{
+		n = n + 1;
+		if(n == 1)
+		{
+			latestowner = task.get("Owner").get("name");
+			taskSubject = task.get("Subject");
+			if(latestowner == "Jane Guo")
+			{
+				info "create marisol";
+				dateTime = today.addDay(2);
+				createTask = zoho.crm.createRecord("Tasks",{"Owner":marisolID,"Send_Notification_Email":true,"Subject":"Quality Assurance","Status":"Waiting for input","$se_module":"Deals","What_Id":dealsID,"Due_Date":dateTime});
+				info createTask;
+			}
+			else
+			{
+				info "create Jane";
+				dateTime = today.addDay(2);
+				createTask = zoho.crm.createRecord("Tasks",{"Owner":janeID,"Send_Notification_Email":true,"Subject":"Quality Assurance","Status":"Waiting for input","$se_module":"Deals","What_Id":dealsID,"Due_Date":dateTime});
+				info createTask;
+			}
+		}
+	}
+}
